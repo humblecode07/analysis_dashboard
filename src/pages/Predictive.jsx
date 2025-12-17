@@ -142,9 +142,6 @@ const Predictive = () => {
                   <p className='text-[1.25rem] font-bold'>Independent Variable(s)</p>
                   <div className='flex flex-wrap gap-[3rem] pt-[1.5rem]'>
                      <div className='w-[8.5625rem] h-[8.5625rem] flex items-center justify-center bg-white rounded-full text-black font-bold text-center'>
-                        Attrition
-                     </div>
-                     <div className='w-[8.5625rem] h-[8.5625rem] flex items-center justify-center bg-white rounded-full text-black font-bold text-center'>
                         Monthly<br />Income
                      </div>
                      <div className='w-[8.5625rem] h-[8.5625rem] flex items-center justify-center bg-white rounded-full text-black font-bold text-center'>

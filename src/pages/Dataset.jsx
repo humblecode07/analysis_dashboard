@@ -22,7 +22,7 @@ export const Dataset = () => {
     };
 
     useEffect(() => {
-        fetch('../../HR_Analytics.csv')
+        fetch('/HR_Analytics.csv')
             .then(response => response.text())
             .then(text => setCsvData(text))
             .catch(error => console.error('Error loading CSV:', error));
