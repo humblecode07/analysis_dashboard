@@ -93,25 +93,25 @@ const Correlative = () => {
             tickangle: -45,
             side: 'bottom',
             tickfont: {
-               size: 9,
+               size: 8,
                color: 'white'
             }
          },
          yaxis: {
             tickfont: {
-               size: 9,
+               size: 8,
                color: 'white'
             }
          },
          paper_bgcolor: '#1F1F1F',
          plot_bgcolor: '#1F1F1F',
-         width: 600,
+         autosize: true,
          height: 500,
          margin: {
-            l: 120,
-            r: 80,
+            l: 150,
+            r: 40,
             t: 60,
-            b: 120
+            b: 150
          }
       };
 
@@ -166,17 +166,17 @@ const Correlative = () => {
          },
          yaxis: {
             tickfont: {
-               size: 9,
+               size: 8,
                color: 'white'
             }
          },
          paper_bgcolor: '#1F1F1F',
          plot_bgcolor: '#1F1F1F',
-         width: 600,
+         autosize: true,
          height: 500,
          margin: {
-            l: 200,
-            r: 80,
+            l: 220,
+            r: 40,
             t: 60,
             b: 60
          }
@@ -267,8 +267,10 @@ const Correlative = () => {
    }, [selectedPair]);
 
    return (
-      <div className="min-h-screen bg-[#1F1F1F] text-white p-8">
-         <div className='max-w-7xl mx-auto flex flex-col gap-12'>
+      <div
+         className="h-full bg-[#1F1F1F] rounded-tl-[12px] rounded-bl-[12px] text-white"
+      >
+         <div className='pl-[2.625rem] pt-[3.1875rem] pr-[8.875rem] pb-[5rem] flex flex-col gap-[5.25rem]'>
             {/* Header */}
             <div className='flex gap-8'>
                <div className='flex gap-4'>
@@ -277,8 +279,8 @@ const Correlative = () => {
                   <div className='w-[6px] h-[11rem] bg-[#FFD900]'></div>
                </div>
                <div className='font-rubik-one flex flex-col'>
-                  <p className='text-5xl'>CORRELATIVE</p>
-                  <p className='text-7xl'>ANALYSIS</p>
+                  <p className='text-[3rem]'>CORRELATIVE</p>
+                  <p className='text-[5.625rem]'>ANALYSIS</p>
                </div>
             </div>
 
@@ -304,7 +306,7 @@ const Correlative = () => {
             </div>
 
             {/* Plots Grid */}
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-[-3rem]'>
                <div className="bg-[#2A2A2A] p-6 rounded-lg">
                   <div ref={heatmapRef}></div>
                </div>
@@ -314,9 +316,8 @@ const Correlative = () => {
                </div>
             </div>
 
-            {/* Scatter Plot */}
-            <div className="bg-[#2A2A2A] p-6 rounded-lg">
-               <div className="mb-4">
+            <div className="bg-[#2A2A2A] p-6 rounded-lg mt-[-3rem]">
+               <div className="mb-[1rem]">
                   <label className="block mb-2 font-bold">Select Variables to Compare:</label>
                   <div className="flex gap-4">
                      <select
@@ -337,14 +338,15 @@ const Correlative = () => {
                   </div>
                </div>
                <div ref={scatterRef}></div>
-               <p className="text-sm mt-4 text-gray-400">*Note: This scatter plot shows simulated data to demonstrate the correlation pattern</p>
+               <p className="text-sm mt-4 text-gray-400">This scatter plot shows simulated data to demonstrate the correlation pattern</p>
             </div>
 
             {/* Key Findings */}
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-5 mt-[-3rem]'>
                <p className='text-2xl font-bold'>Key Findings</p>
 
                <div className="space-y-4">
+
                   <p className="font-bold text-xl text-[#FFD900]">
                      STRONG CORRELATIONS (|r| &gt; 0.6):
                   </p>
