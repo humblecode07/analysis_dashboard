@@ -297,20 +297,40 @@ const Descriptive = () => {
             <div className='flex flex-col gap-[1.3125rem]'>
                <p className='text-[1.5rem] font-bold'>Type of Analysis</p>
                <p>Figure 1. Bar Chart</p>
-               <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+               <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6 flex flex-col">
                   <div ref={attritionPlotRef} className="w-full" style={{ height: '500px' }} />
+                  <div className='border-solid border-[2px] border-black p-2'>
+                     <p className='text-black'>
+                        The bar chart shows that Research & Development has the highest attrition count, with around 130 employees leaving, followed by Sales with about 90, and Human Resources with only about 12–15 leavers.
+                     </p>
+                  </div>
                </div>
                <p>Figure 2. Bar Chart</p>
                <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
                   <div ref={attritionRatePlotRef} className="w-full" style={{ height: '500px' }} />
+                  <div className='border-solid border-[2px] border-black p-2'>
+                     <p className='text-black'>
+                        The chart shows that Sales has the highest attrition rate (about 21%), indicating that a larger proportion of employees leave Sales than any other department. Human Resources is close behind (around 19%), suggesting non-trivial turnover despite its smaller headcount. Research & Development has the lowest attrition rate (around 14%), meaning it retains a greater share of its employees compared with Sales and HR.
+                     </p>
+                  </div>
                </div>
                <p>Figure 3. Box Plot (or Box-and-Whisker Plot).</p>
                <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
                   <div ref={plotRef} className="w-full" style={{ height: '600px' }} />
+                  <div className='border-solid border-[2px] border-black p-2'>
+                     <p className='text-black'>
+                        The box plot indicates that Managers and Research Directors receive the highest median monthly incomes and show the widest pay ranges, reflecting seniority and performance-based variability. Mid- to upper-tier roles like Manufacturing Director and Healthcare Representative also earn relatively high median incomes, while Laboratory Technicians, Sales Representatives, Research Scientists, and HR staff are clustered at the lower end of the pay scale, making them more vulnerable to financial dissatisfaction and potential turnover. Numerous outliers—especially in Sales and technical roles—suggest pockets of possible pay inequity within the same job titles.
+                     </p>
+                  </div>
                </div>
                <p>Figure 4. Age Distribution</p>
                <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
                   <div ref={ageDistributionPlotRef} className="w-full" style={{ height: '500px' }} />
+                  <div className='border-solid border-[2px] border-black p-2'>
+                     <p className='text-black'>
+                        The age histogram shows that the workforce is heavily concentrated from the late 20s to late 30s, with the peak around ages 30–35. There are fewer employees below 25 and above 50, indicating a relatively young, early- to mid‑career population. This younger profile implies higher mobility and a greater risk of job-hopping, so strong development and career progression programs are crucial for retention.
+                     </p>
+                  </div>
                </div>
             </div>
          </div>

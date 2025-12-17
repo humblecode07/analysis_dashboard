@@ -162,6 +162,9 @@ const Correlative = () => {
                   <div className='w-[8.5625rem] h-[8.5625rem] flex items-center justify-center bg-white rounded-full text-black font-bold text-center leading-tight'>
                      Monthly<br />Increase
                   </div>
+                  <div className='w-[8.5625rem] h-[8.5625rem] flex items-center justify-center bg-white rounded-full text-black font-bold text-center leading-tight'>
+                     Total<br />Working<br />Years
+                  </div>
                </div>
             </div>
             <div className='flex flex-col gap-[1.3125rem]'>
