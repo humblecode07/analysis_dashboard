@@ -262,12 +262,13 @@ const Predictive = () => {
                   <div className='mt-4 pt-4 border-t border-gray-600'>
                      <p className='text-[1rem] font-bold text-[#FFD700]'>Key Insights:</p>
                      <div className='flex flex-col gap-2 mt-2 text-[0.95rem]'>
-                        <div><span className='font-bold'>Recall for 'Left' class:</span> 89.4% (catching 42 out of 47 leavers) ✅</div>
+                        <div><span className='font-bold'>Recall for 'Left' class:</span> 89.4% (catching 42 out of 47 leavers)</div>
                         <div><span className='font-bold'>Precision for 'Left' class:</span> 22.0% (42 correct out of 191 predictions)</div>
                      </div>
                   </div>
                </div>
             </div>
+
             <p className='text-[1.5rem] font-bold'>eXtreme Gradient Boosting (supervised learning).</p>
             <div className='bg-white rounded-lg p-6 mt-[-3rem]'>
                <div ref={chartRef} />
