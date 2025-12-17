@@ -268,58 +268,6 @@ const Predictive = () => {
                   </div>
                </div>
             </div>
-            <div className='flex flex-col gap-[1.3125rem]'>
-               <p className='text-[1.5rem] font-bold'>Classification Report</p>
-               <div className='bg-[#2a2a2a] rounded-lg p-6 border border-[#FF00DD]'>
-                  <div className='font-mono text-[0.85rem] text-gray-300'>
-                     <div className='flex justify-between mb-2'>
-                        <span className='w-20'>Class</span>
-                        <span className='w-20'>Precision</span>
-                        <span className='w-20'>Recall</span>
-                        <span className='w-20'>F1-Score</span>
-                        <span className='w-20'>Support</span>
-                     </div>
-                     <div className='border-t border-gray-600 pt-2'>
-                        <div className='flex justify-between mb-2'>
-                           <span className='w-20 font-bold text-white'>Stayed</span>
-                           <span className='w-20'>0.95</span>
-                           <span className='w-20'>0.40</span>
-                           <span className='w-20'>0.56</span>
-                           <span className='w-20'>247</span>
-                        </div>
-                        <div className='flex justify-between mb-2'>
-                           <span className='w-20 font-bold text-white'>Left</span>
-                           <span className='w-20'>0.22</span>
-                           <span className='w-20'>0.89</span>
-                           <span className='w-20'>0.35</span>
-                           <span className='w-20'>47</span>
-                        </div>
-                        <div className='border-t border-gray-600 pt-2'>
-                           <div className='flex justify-between mb-2'>
-                              <span className='w-20 font-bold text-white'>Accuracy</span>
-                              <span className='col-span-3'></span>
-                              <span className='w-20'>0.48</span>
-                              <span className='w-20'>294</span>
-                           </div>
-                           <div className='flex justify-between mb-2'>
-                              <span className='w-20 font-bold text-white'>Macro Avg</span>
-                              <span className='w-20'>0.59</span>
-                              <span className='w-20'>0.65</span>
-                              <span className='w-20'>0.46</span>
-                              <span className='w-20'>294</span>
-                           </div>
-                           <div className='flex justify-between'>
-                              <span className='w-20 font-bold text-white'>Weighted Avg</span>
-                              <span className='w-20'>0.83</span>
-                              <span className='w-20'>0.48</span>
-                              <span className='w-20'>0.53</span>
-                              <span className='w-20'>294</span>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
             <p className='text-[1.5rem] font-bold'>eXtreme Gradient Boosting (supervised learning).</p>
             <div className='bg-white rounded-lg p-6 mt-[-3rem]'>
                <div ref={chartRef} />
