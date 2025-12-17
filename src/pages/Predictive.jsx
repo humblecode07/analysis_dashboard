@@ -320,8 +320,8 @@ const Predictive = () => {
                   </div>
                </div>
             </div>
-            <p>eXtreme Gradient Boosting (supervised learning).</p>
-            <div className='bg-white rounded-lg p-6'>
+            <p className='text-[1.5rem] font-bold'>eXtreme Gradient Boosting (supervised learning).</p>
+            <div className='bg-white rounded-lg p-6 mt-[-3rem]'>
                <div ref={chartRef} />
             </div>
             <div className="flex flex-col space-y-2">
