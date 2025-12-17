@@ -4,6 +4,7 @@ import * as Plotly from 'plotly.js-dist-min'
 
 const Predictive = () => {
    const chartRef = useRef(null);
+   const confusionMatrixRef = useRef(null);
 
    useEffect(() => {
       if (chartRef.current) {
@@ -100,11 +101,59 @@ const Predictive = () => {
          };
 
          Plotly.newPlot(chartRef.current, data, layout, config);
+
+         // Confusion Matrix
+         if (confusionMatrixRef.current) {
+            const confusionData = [{
+               z: [[98, 149], [5, 42]],
+               x: ['Predicted: Stayed', 'Predicted: Left'],
+               y: ['Actual: Stayed', 'Actual: Left'],
+               type: 'heatmap',
+               colorscale: 'Blues',
+               text: [[98, 149], [5, 42]],
+               texttemplate: '%{text}',
+               textfont: { size: 16, color: 'white' },
+               hovertemplate: '%{y} | %{x}<br>Count: %{z}<extra></extra>',
+               colorbar: { title: 'Count' }
+            }];
+
+            const confusionLayout = {
+               title: {
+                  text: 'Confusion Matrix (Test Set)',
+                  font: { size: 20, color: '#000', family: 'Arial, sans-serif' },
+                  x: 0.5,
+                  xanchor: 'center'
+               },
+               xaxis: {
+                  title: { text: 'Predicted Label', font: { size: 14, color: '#000' } },
+                  tickfont: { color: '#000' }
+               },
+               yaxis: {
+                  title: { text: 'Actual Label', font: { size: 14, color: '#000' } },
+                  tickfont: { color: '#000' }
+               },
+               plot_bgcolor: '#ffffff',
+               paper_bgcolor: '#ffffff',
+               margin: { l: 100, r: 100, t: 80, b: 80 },
+               height: 500
+            };
+
+            const confusionConfig = {
+               responsive: true,
+               displayModeBar: true,
+               displaylogo: false
+            };
+
+            Plotly.newPlot(confusionMatrixRef.current, confusionData, confusionLayout, confusionConfig);
+         }
       }
 
       return () => {
          if (chartRef.current) {
             Plotly.purge(chartRef.current);
+         }
+         if (confusionMatrixRef.current) {
+            Plotly.purge(confusionMatrixRef.current);
          }
       };
    }, []);
@@ -198,28 +247,99 @@ const Predictive = () => {
                </div>
             </div>
             <div className='flex flex-col gap-[1.3125rem]'>
-               <p className='text-[1.5rem] font-bold'>Type of Analysis</p>
-               <p>eXtreme Gradient Boosting (supervised learning).</p>
+               <p className='text-[1.5rem] font-bold'>Confusion Matrix</p>
                <div className='bg-white rounded-lg p-6'>
-                  <div ref={chartRef} />
+                  <div ref={confusionMatrixRef} />
                </div>
-               <div class="flex flex-col space-y-2">
-                  <p class="font-bold text-[1.25rem]">Insights:</p>
-                  <ul className='flex flex-col gap-[1rem] text-[0.95rem] list-disc pl-[1.5rem]'>
-                     <li><strong>Experience_Squared</strong> shows the strongest influence on turnover, indicating a non-linear pattern where employees are more likely to resign during early-career and mid-career transition stages.</li>
-                     <li><strong>OverTime</strong> is the second most important factor, highlighting that heavy workload and extended hours significantly drive employees to leave.</li>
-                     <li><strong>Young_Overworked</strong> ranks next, showing that early-career employees who are already experiencing overtime pressures face an elevated risk of turnover.</li>
-                     <li><strong>TotalWorkingYears</strong> remains a key predictor, reinforcing that career stage and accumulated experience shape resignation behavior.</li>
-                     <li><strong>LowSat_Overtime</strong> is also highly influential, demonstrating that overtime becomes especially harmful when paired with low job satisfaction.</li>
-                     <li><strong>Satisfaction_Product</strong> and <strong>Total_Dissatisfaction</strong> contribute substantially, indicating that lower satisfaction across multiple dimensions increases the likelihood of attrition.</li>
-                     <li><strong>MonthlyIncome</strong> plays a moderate role, suggesting that compensation affects turnover decisions but is less dominant compared to workload and satisfaction.</li>
-                     <li><strong>EnvironmentSatisfaction</strong> and <strong>JobSatisfaction</strong> further support the importance of workplace climate, with lower satisfaction linked to higher resignation risk.</li>
-                     <li><strong>Age</strong> contributes to turnover prediction, mainly as part of the broader experience-related patterns captured by other features.</li>
-                     <li><strong>HighRisk_Profile</strong> captures compounded risk, identifying employees who face the combined effects of overtime, low satisfaction, and low pay.</li>
-                     <li><strong>Income_Per_Experience</strong> and <strong>Income_Per_Age</strong> show that compensation fairness relative to experience and age matters, but at a lower magnitude.</li>
-                     <li><strong>Is_MidCareer</strong> has the least impact, suggesting that mid-career status alone is not a strong predictor unless paired with other stressors.</li>
-                  </ul>
+               <div className='bg-[#2a2a2a] rounded-lg p-6 border border-[#00B2FF]'>
+                  <p className='font-bold text-[1.1rem] mb-4'>🔍 Detailed Breakdown</p>
+                  <div className='grid grid-cols-2 gap-4 text-[0.95rem]'>
+                     <div><span className='font-bold'>True Negatives:</span> 98 (correctly predicted stayed)</div>
+                     <div><span className='font-bold'>False Positives:</span> 149 (predicted left, actually stayed)</div>
+                     <div><span className='font-bold'>False Negatives:</span> 5 (predicted stayed, actually left)</div>
+                     <div><span className='font-bold'>True Positives:</span> 42 (correctly predicted left)</div>
+                  </div>
+                  <div className='mt-4 pt-4 border-t border-gray-600'>
+                     <p className='text-[1rem] font-bold text-[#FFD700]'>Key Insights:</p>
+                     <div className='flex flex-col gap-2 mt-2 text-[0.95rem]'>
+                        <div><span className='font-bold'>Recall for 'Left' class:</span> 89.4% (catching 42 out of 47 leavers) ✅</div>
+                        <div><span className='font-bold'>Precision for 'Left' class:</span> 22.0% (42 correct out of 191 predictions)</div>
+                     </div>
+                  </div>
                </div>
+            </div>
+            <div className='flex flex-col gap-[1.3125rem]'>
+               <p className='text-[1.5rem] font-bold'>Classification Report</p>
+               <div className='bg-[#2a2a2a] rounded-lg p-6 border border-[#FF00DD]'>
+                  <div className='font-mono text-[0.85rem] text-gray-300'>
+                     <div className='flex justify-between mb-2'>
+                        <span className='w-20'>Class</span>
+                        <span className='w-20'>Precision</span>
+                        <span className='w-20'>Recall</span>
+                        <span className='w-20'>F1-Score</span>
+                        <span className='w-20'>Support</span>
+                     </div>
+                     <div className='border-t border-gray-600 pt-2'>
+                        <div className='flex justify-between mb-2'>
+                           <span className='w-20 font-bold text-white'>Stayed</span>
+                           <span className='w-20'>0.95</span>
+                           <span className='w-20'>0.40</span>
+                           <span className='w-20'>0.56</span>
+                           <span className='w-20'>247</span>
+                        </div>
+                        <div className='flex justify-between mb-2'>
+                           <span className='w-20 font-bold text-white'>Left</span>
+                           <span className='w-20'>0.22</span>
+                           <span className='w-20'>0.89</span>
+                           <span className='w-20'>0.35</span>
+                           <span className='w-20'>47</span>
+                        </div>
+                        <div className='border-t border-gray-600 pt-2'>
+                           <div className='flex justify-between mb-2'>
+                              <span className='w-20 font-bold text-white'>Accuracy</span>
+                              <span className='col-span-3'></span>
+                              <span className='w-20'>0.48</span>
+                              <span className='w-20'>294</span>
+                           </div>
+                           <div className='flex justify-between mb-2'>
+                              <span className='w-20 font-bold text-white'>Macro Avg</span>
+                              <span className='w-20'>0.59</span>
+                              <span className='w-20'>0.65</span>
+                              <span className='w-20'>0.46</span>
+                              <span className='w-20'>294</span>
+                           </div>
+                           <div className='flex justify-between'>
+                              <span className='w-20 font-bold text-white'>Weighted Avg</span>
+                              <span className='w-20'>0.83</span>
+                              <span className='w-20'>0.48</span>
+                              <span className='w-20'>0.53</span>
+                              <span className='w-20'>294</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <p>eXtreme Gradient Boosting (supervised learning).</p>
+            <div className='bg-white rounded-lg p-6'>
+               <div ref={chartRef} />
+            </div>
+            <div className="flex flex-col space-y-2">
+               <p className="font-bold text-[1.25rem]">Insights:</p>
+               <ul className='flex flex-col gap-[1rem] text-[0.95rem] list-disc pl-[1.5rem]'>
+                  <li><strong>Experience_Squared</strong> shows the strongest influence on turnover, indicating a non-linear pattern where employees are more likely to resign during early-career and mid-career transition stages.</li>
+                  <li><strong>OverTime</strong> is the second most important factor, highlighting that heavy workload and extended hours significantly drive employees to leave.</li>
+                  <li><strong>Young_Overworked</strong> ranks next, showing that early-career employees who are already experiencing overtime pressures face an elevated risk of turnover.</li>
+                  <li><strong>TotalWorkingYears</strong> remains a key predictor, reinforcing that career stage and accumulated experience shape resignation behavior.</li>
+                  <li><strong>LowSat_Overtime</strong> is also highly influential, demonstrating that overtime becomes especially harmful when paired with low job satisfaction.</li>
+                  <li><strong>Satisfaction_Product</strong> and <strong>Total_Dissatisfaction</strong> contribute substantially, indicating that lower satisfaction across multiple dimensions increases the likelihood of attrition.</li>
+                  <li><strong>MonthlyIncome</strong> plays a moderate role, suggesting that compensation affects turnover decisions but is less dominant compared to workload and satisfaction.</li>
+                  <li><strong>EnvironmentSatisfaction</strong> and <strong>JobSatisfaction</strong> further support the importance of workplace climate, with lower satisfaction linked to higher resignation risk.</li>
+                  <li><strong>Age</strong> contributes to turnover prediction, mainly as part of the broader experience-related patterns captured by other features.</li>
+                  <li><strong>HighRisk_Profile</strong> captures compounded risk, identifying employees who face the combined effects of overtime, low satisfaction, and low pay.</li>
+                  <li><strong>Income_Per_Experience</strong> and <strong>Income_Per_Age</strong> show that compensation fairness relative to experience and age matters, but at a lower magnitude.</li>
+                  <li><strong>Is_MidCareer</strong> has the least impact, suggesting that mid-career status alone is not a strong predictor unless paired with other stressors.</li>
+               </ul>
             </div>
          </div>
       </div>
